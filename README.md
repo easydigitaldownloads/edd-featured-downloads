@@ -1,0 +1,2 @@
+edd-featured-downloads
+======================
