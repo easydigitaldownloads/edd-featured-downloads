@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: EDD Featured Downloads
-Plugin URI: http://sumobi.com/store/edd-featured-downloads/
-Description: Provides a intiutive interface and functionality for managing featured downloads
-Version: 1.0
-Author: Andrew Munro - Sumobi
-Author URI: http://sumobi.com
+Plugin URI: https://easydigitaldownloads.com/downloads/edd-featured-downloads/
+Description: Provides a intuitive interface and functionality for managing featured downloads
+Version: 1.0.1
+Author: Easy Digital Downloads
+Author URI: https://easydigitaldownloads.com
 License: GPL-2.0+
 License URI: http://www.opensource.org/licenses/gpl-license.php
 */
@@ -19,7 +19,7 @@ function edd_fd_textdomain() {
 add_action( 'init', 'edd_fd_textdomain' );
 
 
-/**		
+/**
  * Add metabox to individual download edit screens
  * @since 1.0
 */
@@ -30,11 +30,11 @@ function edd_fd_add_featured_meta_box() {
 add_action( 'add_meta_boxes', 'edd_fd_add_featured_meta_box' );
 
 
-/**		
+/**
  * Render Metabox
- * @since 1.0 
+ * @since 1.0
 */
-function edd_fd_render_featured_download_meta_box() { 
+function edd_fd_render_featured_download_meta_box() {
 	global $post;
 	$current = get_post_meta( $post->ID, 'edd_feature_download', true );
 ?>
@@ -44,9 +44,9 @@ function edd_fd_render_featured_download_meta_box() {
 <?php }
 
 
-/**		
+/**
  * Hook into save filter and make sure it gets saved
- * @since 1.0 
+ * @since 1.0
 */
 function edd_fd_edd_metabox_fields_save( $fields ) {
 
@@ -57,9 +57,9 @@ function edd_fd_edd_metabox_fields_save( $fields ) {
 add_filter( 'edd_metabox_fields_save', 'edd_fd_edd_metabox_fields_save' );
 
 
-/**		
+/**
  * Display post column
- * @since 1.0 
+ * @since 1.0
 */
 
 function edd_fd_download_columns( $download_columns ) {
@@ -87,14 +87,14 @@ function edd_fd_render_download_columns( $column_name, $post_id ) {
 		  $checked = 'checked';
 		  echo '<input style="visibility: hidden; display: none;" type="checkbox" checked="checked" readonly="readonly" />';
 		  _e( 'Featured', 'edd-fd' );
-		} 
+		}
 		break;
 	}
 }
 add_action( 'manage_posts_custom_column', 'edd_fd_render_download_columns', 10, 2 );
 
 
-/**		
+/**
  * Add to quick edit
  * @since 1.0
 */
@@ -138,14 +138,14 @@ function edd_fd_add_quick_edit( $column_name, $post_type ) {
 add_action( 'quick_edit_custom_box', 'edd_fd_add_quick_edit', 10, 2 );
 
 
-/**		
+/**
  * Save function for quick edit
- * @since 1.0 
+ * @since 1.0
 */
 function edd_fd_save_quick_edit_data( $post_id )  {
 
 	$slug = 'download';
-		
+
     $_POST += array("{$slug}_edit_nonce" => '');
 
     if ( $slug != isset( $_POST['post_type'] ) )
@@ -167,7 +167,7 @@ add_action( 'save_post', 'edd_fd_save_quick_edit_data' );
 
 
 
-/**		
+/**
  * Load scripts in footer
  * @since 1.0
 */
@@ -182,13 +182,13 @@ function edd_fd_admin_edit_foot() {
 add_action( 'admin_footer-edit.php', 'edd_fd_admin_edit_foot', 11 );
 
 
-/**		
+/**
  * Template tag to show the featured downloads
  * @since 1.0
 */
 
 if( !function_exists('edd_fd_show_featured_downloads') ) {
-function edd_fd_show_featured_downloads( $thumbnails = true, $columns = 3, $number = 3, $price = true, $excerpt = true, $full_content = true, $buy_button = true, $orderby = 'post_date', $order = 'DESC' ) { 
+function edd_fd_show_featured_downloads( $thumbnails = true, $columns = 3, $number = 3, $price = true, $excerpt = true, $full_content = true, $buy_button = true, $orderby = 'post_date', $order = 'DESC' ) {
 
 	switch( intval( $columns ) ) :
 		case 1:
@@ -256,8 +256,8 @@ function edd_fd_show_featured_downloads( $thumbnails = true, $columns = 3, $numb
 		</div>
 		<?php endif; wp_reset_postdata(); ?>
 
-<?php 
-	$html = ob_get_clean(); 
+<?php
+	$html = ob_get_clean();
 	echo apply_filters( 'edd_fd_featured_downloads_html', $html, $featured_downloads );
 }
 }

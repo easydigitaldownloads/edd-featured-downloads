@@ -1,19 +1,19 @@
 === EDD Featured Downloads ===
-Contributors: sumobi
+Contributors: sumobi, easydigitaldownloads
 Tags: easy digital downloads, digital downloads, e-downloads, edd, featured downloads, featured
-Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 1.0
+Requires at least: 3.9
+Tested up to: 4.7.3
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A plugin for Easy Digital Downloads so you can easily feature your downloads
+Easily feature your downloads
 
 == Description ==
 
-This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads"). It's aimed at developers/clients who need to show a list of featured downloads. 
+This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads"). It's aimed at developers/clients who need to show a list of featured downloads.
 
-1. Provides a template tag so finely-tuned placement of featured downloads in your theme is possible. 
+1. Provides a template tag so finely-tuned placement of featured downloads in your theme is possible.
 1. Provides a shortcode which will simply list all the featured downloads, without the need to enter any IDs.
 1. Provides a simple interface for managing featured downloads in the WordPress admin. A "feature download" checkbox will be added to each download edit/publish screen as well as the quick edit boxes. At a glance you'll also be able to see which downloads have been featured on your website from the main download listing.
 
@@ -27,7 +27,7 @@ The following shortcode is available to display your featured images. Most of th
 
 = Template Tag Usage =
 
-The following template tag is available for showing the featured downloads anywhere in your theme. 
+The following template tag is available for showing the featured downloads anywhere in your theme.
 
     if( function_exists( 'edd_fd_show_featured_downloads') ) {
 	    edd_fd_show_featured_downloads();
@@ -39,7 +39,7 @@ The template tag uses the exact same HTML as the shortcode so can be modified ac
 
 To build your own query using [WP_Query](https://codex.wordpress.org/Class_Reference/WP_Query "WP_Query") you can use the `meta_key` parameter with a value of `edd_feature_download`. The following example builds a simple unordered list with all the featured downloads.
 
-    <?php 
+    <?php
 
     $args = array(
 	    'post_type' => 'download',
@@ -75,6 +75,9 @@ To build your own query using [WP_Query](https://codex.wordpress.org/Class_Refer
 3. See which downloads have been featured at a glance.
 
 == Changelog ==
+
+= 1.0.1 =
+* Tweak: Updated plugin information
 
 = 1.0 =
 * Initial release
