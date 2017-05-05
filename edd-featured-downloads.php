@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: EDD Featured Downloads
+Plugin Name: Easy Digital Downloads - Featured Downloads
 Plugin URI: https://easydigitaldownloads.com/downloads/edd-featured-downloads/
 Description: Provides a intuitive interface and functionality for managing featured downloads
 Version: 1.0.1
