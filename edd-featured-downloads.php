@@ -144,23 +144,23 @@ add_action( 'quick_edit_custom_box', 'edd_fd_add_quick_edit', 10, 2 );
 */
 function edd_fd_save_quick_edit_data( $post_id )  {
 
-	$slug = 'download';
-
-    $_POST += array("{$slug}_edit_nonce" => '');
-
-    if ( $slug != isset( $_POST['post_type'] ) )
+    if ( 'download' != isset( $_POST['post_type'] ) ) {
         return;
+    }
 
-    if ( !current_user_can( 'edit_post', $post_id ) )
+    if ( !current_user_can( 'edit_post', $post_id ) ) {
         return;
+    }
 
-    if ( !wp_verify_nonce( $_POST["{$slug}_edit_nonce"], plugin_basename( __FILE__ ) ) )
+    if ( !wp_verify_nonce( $_POST["download_edit_nonce"], plugin_basename( __FILE__ ) ) ) {
         return;
+    }
 
-	if ( isset( $_REQUEST['edd_feature_download'] ) )
+	if ( isset( $_REQUEST['edd_feature_download'] ) ) {
 		update_post_meta( $post_id, 'edd_feature_download', TRUE );
-	else
+	} else {
 		delete_post_meta( $post_id, 'edd_feature_download' );
+	}
 
 }
 add_action( 'save_post', 'edd_fd_save_quick_edit_data' );
