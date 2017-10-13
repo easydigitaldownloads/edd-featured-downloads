@@ -440,3 +440,48 @@ function edd_fd_shortcode( $atts, $content = null ) {
 	return apply_filters( 'edd_fd_shortcode', $display, $atts, $buy_button, $columns, $column_width, $downloads, $excerpt, $full_content, $price, $thumbnails, $query );
 }
 add_shortcode( 'edd_featured_downloads', 'edd_fd_shortcode' );
+
+/**
+ * Filter the [downloads] shortcode to include a new "featured" attribute.
+ * Example: [downloads featured="yes"]
+ *
+ * @since 1.0.3
+ * 
+ * @param array  $out       The output array of shortcode attributes.
+ * @param array  $pairs     The supported attributes and their defaults.
+ * @param array  $atts      The user defined shortcode attributes.
+ * @param string $shortcode The shortcode name. In this case, "downloads".
+ * 
+ * @return array $out       The output array of shortcode attributes.
+ */
+function edd_fd_shortcode_atts_downloads( $out, $pairs, $atts, $shortcode ) {
+
+	if ( isset( $atts['featured'] ) && 'yes' === $atts['featured'] ) {
+		$out['featured'] = 'yes';
+	}
+
+	return $out;
+
+}
+add_filter( 'shortcode_atts_downloads', 'edd_fd_shortcode_atts_downloads', 10, 4 );
+
+/**
+ * Query downloads by the "edd_feature_download" meta key.
+ *
+ * @since 1.0.3
+ * 
+ * @param array  $query
+ * @param string $atts 
+ * 
+ * @return array $query
+ */
+function edd_fd_filter_downloads_query( $query, $atts ) {
+
+    if ( isset( $atts['featured'] ) && 'yes' === $atts['featured'] ) {
+        $query['meta_key'] = 'edd_feature_download';
+	}
+
+	return $query;
+	
+}
+add_filter( 'edd_downloads_query', 'edd_fd_filter_downloads_query', 10, 2 );
