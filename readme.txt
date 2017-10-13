@@ -2,8 +2,8 @@
 Contributors: sumobi, easydigitaldownloads
 Tags: easy digital downloads, digital downloads, e-downloads, edd, featured downloads, featured
 Requires at least: 3.9
-Tested up to: 4.8
-Stable tag: 1.0.2
+Tested up to: 4.8.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,19 +11,17 @@ Easily feature your downloads
 
 == Description ==
 
-This plugin requires [Easy Digital Downloads](http://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads"). It's aimed at developers/clients who need to show a list of featured downloads.
+This plugin requires [Easy Digital Downloads](https://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads"). It's aimed at developers/clients who need to show a list of featured downloads.
 
 1. Provides a template tag so finely-tuned placement of featured downloads in your theme is possible.
 1. Provides a shortcode which will simply list all the featured downloads, without the need to enter any IDs.
 1. Provides a simple interface for managing featured downloads in the WordPress admin. A "feature download" checkbox will be added to each download edit/publish screen as well as the quick edit boxes. At a glance you'll also be able to see which downloads have been featured on your website from the main download listing.
 
-In true EDD fashion, hooks are provided for developers to fine tune the HTML if needed.
-
 = Shortcode Usage =
 
-The following shortcode is available to display your featured images. Most of the shortcode attributes from the main [downloads] shortcode are available to use
+Add the "featured" attribute to the existing [downloads] shortcode provided by Easy Digital Downloads:
 
-    [edd_featured_downloads]
+    [downloads featured="yes"]
 
 = Template Tag Usage =
 
@@ -43,7 +41,7 @@ To build your own query using [WP_Query](https://codex.wordpress.org/Class_Refer
 
     $args = array(
 	    'post_type' => 'download',
-	    'meta_key' => 'edd_feature_download',
+	    'meta_key'  => 'edd_feature_download',
     );
 
     $featured_downloads = new WP_Query( $args );
@@ -76,8 +74,11 @@ To build your own query using [WP_Query](https://codex.wordpress.org/Class_Refer
 
 == Changelog ==
 
-= 1.0.2 =
+= 1.0.3 =
+* New: Added a "featured" attribute to the default [downloads] shortcode in Easy Digital Downloads. Example [downloads featured="yes"].
+* Fix: Fixed a PHP notice that could occur: Undefined index: download_edit_nonce
 
+= 1.0.2 =
 * Fix: Fatal error on some PHP versions
 
 = 1.0.1 =
