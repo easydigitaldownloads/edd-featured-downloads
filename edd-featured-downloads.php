@@ -25,7 +25,6 @@ add_action( 'init', 'edd_fd_textdomain' );
 */
 function edd_fd_add_featured_meta_box() {
 	add_meta_box( 'edd_featured_download', sprintf( __( 'Feature %1$s', 'edd-fd' ), edd_get_label_singular(), edd_get_label_plural() ), 'edd_fd_render_featured_download_meta_box', 'download', 'side', 'high' );
-
 }
 add_action( 'add_meta_boxes', 'edd_fd_add_featured_meta_box' );
 
@@ -137,22 +136,26 @@ function edd_fd_add_quick_edit( $column_name, $post_type ) {
 }
 add_action( 'quick_edit_custom_box', 'edd_fd_add_quick_edit', 10, 2 );
 
-
 /**
  * Save function for quick edit
+ * 
  * @since 1.0
+ * 
+ * @param int     $post_id Post ID.
+ * @param WP_Post $post    Post object.
+ * @param bool    $update  Whether this is an existing post being updated or not.
 */
-function edd_fd_save_quick_edit_data( $post_id )  {
+function edd_fd_save_quick_edit_data( $post_id, $post, $update )  {
+	
+	if ( 'download' !== get_post_type( $post_id ) ) {
+		return;
+	}
 
-    if ( 'download' != isset( $_POST['post_type'] ) ) {
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
         return;
     }
 
-    if ( !current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
-
-    if ( !wp_verify_nonce( $_POST["download_edit_nonce"], plugin_basename( __FILE__ ) ) ) {
+    if ( ! isset( $_POST[ 'download_edit_nonce' ] ) || ! wp_verify_nonce( $_POST['download_edit_nonce'], plugin_basename( __FILE__ ) ) ) {
         return;
     }
 
@@ -163,9 +166,7 @@ function edd_fd_save_quick_edit_data( $post_id )  {
 	}
 
 }
-add_action( 'save_post', 'edd_fd_save_quick_edit_data' );
-
-
+add_action( 'save_post', 'edd_fd_save_quick_edit_data', 10, 3 );
 
 /**
  * Load scripts in footer
