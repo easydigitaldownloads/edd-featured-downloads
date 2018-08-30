@@ -11,14 +11,6 @@ License URI: http://www.opensource.org/licenses/gpl-license.php
 */
 
 /**
- * Internationalization
- */
-function edd_fd_textdomain() {
-	load_plugin_textdomain( 'edd-fd', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
-add_action( 'init', 'edd_fd_textdomain' );
-
-/**
  * Add metabox to individual download edit screens
  * @since 1.0
 */
