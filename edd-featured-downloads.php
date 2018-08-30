@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Featured Downloads
 Plugin URI: https://easydigitaldownloads.com/downloads/edd-featured-downloads/
 Description: Provides a intuitive interface and functionality for managing featured downloads
-Version: 1.0.3
+Version: 1.0.4
 Author: Easy Digital Downloads
 Author URI: https://easydigitaldownloads.com
 License: GPL-2.0+
@@ -18,7 +18,6 @@ function edd_fd_textdomain() {
 }
 add_action( 'init', 'edd_fd_textdomain' );
 
-
 /**
  * Add metabox to individual download edit screens
  * @since 1.0
@@ -27,7 +26,6 @@ function edd_fd_add_featured_meta_box() {
 	add_meta_box( 'edd_featured_download', sprintf( __( 'Feature %1$s', 'edd-fd' ), edd_get_label_singular(), edd_get_label_plural() ), 'edd_fd_render_featured_download_meta_box', 'download', 'side', 'high' );
 }
 add_action( 'add_meta_boxes', 'edd_fd_add_featured_meta_box' );
-
 
 /**
  * Render Metabox
@@ -42,28 +40,22 @@ function edd_fd_render_featured_download_meta_box() {
 	</label></p>
 <?php }
 
-
 /**
  * Hook into save filter and make sure it gets saved
  * @since 1.0
 */
 function edd_fd_edd_metabox_fields_save( $fields ) {
-
 	$fields[] = 'edd_feature_download';
-
 	return $fields;
 }
 add_filter( 'edd_metabox_fields_save', 'edd_fd_edd_metabox_fields_save' );
-
 
 /**
  * Display post column
  * @since 1.0
 */
 function edd_fd_download_columns( $download_columns ) {
-
 	$download_columns['featured'] = __( 'Featured', 'edd-fd' );
-
 	return $download_columns;
 }
 add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns' );
@@ -83,7 +75,6 @@ add_filter( 'fes_download_table_columns', 'edd_fd_fes_download_table_columns' );
  * Show 'featured' in column
  * @since 1.0
 */
-
 function edd_fd_render_download_columns( $column_name, $post_id ) {
 
 	$featured = get_post_meta( $post_id, 'edd_feature_download', true );
@@ -91,52 +82,48 @@ function edd_fd_render_download_columns( $column_name, $post_id ) {
 	switch ( $column_name ) {
 		case "featured":
 
-		if( $featured ) {
-		  $checked = 'checked';
-		  echo '<input style="visibility: hidden; display: none;" type="checkbox" checked="checked" readonly="readonly" />';
-		  _e( 'Featured', 'edd-fd' );
+		if ( $featured ) {
+			$checked = 'checked';
+			echo '<input style="visibility: hidden; display: none;" type="checkbox" checked="checked" readonly="readonly" />';
+			_e( 'Featured', 'edd-fd' );
 		}
 		break;
 	}
 }
 add_action( 'manage_posts_custom_column', 'edd_fd_render_download_columns', 10, 2 );
 
-
 /**
  * Add to quick edit
  * @since 1.0
 */
-
 function edd_fd_add_quick_edit( $column_name, $post_type ) {
+	if ( $column_name != 'featured' ) {
+		return;
+	}
 
- if( $column_name != 'featured' )
- 	return;
+	static $printNonce = TRUE;
 
-  static $printNonce = TRUE;
-
-  if ( $printNonce ) {
-    $printNonce = FALSE;
-    wp_nonce_field( plugin_basename( __FILE__ ), 'download_edit_nonce' );
-  }
+	if ( $printNonce ) {
+		$printNonce = FALSE;
+		wp_nonce_field( plugin_basename( __FILE__ ), 'download_edit_nonce' );
+	}
 
 ?>
 
 <fieldset class="inline-edit-col-right inline-edit-featured">
 	<div class="inline-edit-col inline-edit-<?php echo $column_name ?>">
 	<?php
-	  switch ( $column_name ) {
-	    case 'featured':
-	?>
-	<legend style="display: none;">Featured</legend>
+		switch ( $column_name ) {
+			case 'featured':
+		?>
+		<legend style="display: none;">Featured</legend>
 
-	<label class="alignleft">
-		<input id="edd_feature_download" name="edd_feature_download" class="edd_feature_download" type="checkbox" />
-		<span class="checkbox-title"><?php _e( 'Feature Download', 'edd-fd' ); ?></span>
-	</label>
-
-	<?php
-	    break;
-	  }
+		<label class="alignleft">
+			<input id="edd_feature_download" name="edd_feature_download" class="edd_feature_download" type="checkbox" />
+			<span class="checkbox-title"><?php _e( 'Feature Download', 'edd-fd' ); ?></span>
+		</label>
+		<?php break;
+		}
 	?>
 	</div>
 </fieldset>
@@ -160,13 +147,13 @@ function edd_fd_save_quick_edit_data( $post_id, $post, $update )  {
 		return;
 	}
 
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        return;
-    }
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
 
-    if ( ! isset( $_POST[ 'download_edit_nonce' ] ) || ! wp_verify_nonce( $_POST['download_edit_nonce'], plugin_basename( __FILE__ ) ) ) {
-        return;
-    }
+	if ( ! isset( $_POST[ 'download_edit_nonce' ] ) || ! wp_verify_nonce( $_POST['download_edit_nonce'], plugin_basename( __FILE__ ) ) ) {
+		return;
+	}
 
 	if ( isset( $_REQUEST['edd_feature_download'] ) ) {
 		update_post_meta( $post_id, 'edd_feature_download', TRUE );
@@ -182,41 +169,39 @@ add_action( 'save_post', 'edd_fd_save_quick_edit_data', 10, 3 );
  * @since 1.0
 */
 function edd_fd_admin_edit_foot() {
-    $slug = 'download';
+	$slug = 'download';
 
-    if (   ( isset( $_GET['page'] ) && $_GET['page'] == $slug )
-        || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == $slug ) ) {
-        echo '<script type="text/javascript" src="', plugins_url( 'scripts/admin_edit.js', __FILE__ ), '"></script>';
-    }
+	if ( ( isset( $_GET['page'] ) && $_GET['page'] == $slug ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == $slug ) ) {
+		echo '<script type="text/javascript" src="', plugins_url( 'scripts/admin_edit.js', __FILE__ ), '"></script>';
+	}
 }
 add_action( 'admin_footer-edit.php', 'edd_fd_admin_edit_foot', 11 );
-
 
 /**
  * Template tag to show the featured downloads
  * @since 1.0
 */
+if ( ! function_exists('edd_fd_show_featured_downloads') ) {
+	function edd_fd_show_featured_downloads( $thumbnails = true, $columns = 3, $number = 3, $price = true, $excerpt = true, $full_content = true, $buy_button = true, $orderby = 'post_date', $order = 'DESC' ) {
 
-if( !function_exists('edd_fd_show_featured_downloads') ) {
-function edd_fd_show_featured_downloads( $thumbnails = true, $columns = 3, $number = 3, $price = true, $excerpt = true, $full_content = true, $buy_button = true, $orderby = 'post_date', $order = 'DESC' ) {
+		switch ( intval( $columns ) ) :
+			case 1:
+				$column_width = '100%'; break;
+			case 2:
+				$column_width = '50%'; break;
+			case 3:
+				$column_width = '33%'; break;
+			case 4:
+				$column_width = '25%'; break;
+			case 5:
+				$column_width = '20%'; break;
+			case 6:
+				$column_width = '16.6%'; break;
+		endswitch;
 
-	switch( intval( $columns ) ) :
-		case 1:
-			$column_width = '100%'; break;
-		case 2:
-			$column_width = '50%'; break;
-		case 3:
-			$column_width = '33%'; break;
-		case 4:
-			$column_width = '25%'; break;
-		case 5:
-			$column_width = '20%'; break;
-		case 6:
-			$column_width = '16.6%'; break;
-	endswitch;
-
-		if( post_type_exists('download') )
+		if ( post_type_exists('download') ) {
 			$post_type_obj = get_post_type_object( 'download' );
+		}
 
 		$args = apply_filters( 'edd_fd_featured_downloads_args', array(
 			'post_type' => 'download',
@@ -262,25 +247,22 @@ function edd_fd_show_featured_downloads( $thumbnails = true, $columns = 3, $numb
 					</div>
 				</div>
 
-		  	<?php endwhile; ?>
+			<?php endwhile; ?>
 		</div>
-		<?php endif; wp_reset_postdata(); ?>
+		<?php endif; wp_reset_postdata();
 
-<?php
-	$html = ob_get_clean();
-	echo apply_filters( 'edd_fd_featured_downloads_html', $html, $featured_downloads );
+		$html = ob_get_clean();
+		echo apply_filters( 'edd_fd_featured_downloads_html', $html, $featured_downloads );
+	}
 }
-}
-
-
 
 /**
  * Featured Downloads Shortcode
+ * 
  * Created a new shortcode as filtering the shortcode atts is not possible yet
  * https://core.trac.wordpress.org/ticket/15155
  * @since 1.0
  */
-
 function edd_fd_shortcode( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'category'         => '',
@@ -332,8 +314,6 @@ function edd_fd_shortcode( $atts, $content = null ) {
 		break;
 	}
 
-
-
 	if ( $tags || $category || $exclude_category || $exclude_tags ) {
 		$query['tax_query'] = array(
 			'relation'     => $relation
@@ -381,7 +361,7 @@ function edd_fd_shortcode( $atts, $content = null ) {
 	else
 		$query['paged'] = 1;
 
-	switch( intval( $columns ) ) :
+	switch ( intval( $columns ) ) :
 		case 1:
 			$column_width = '100%'; break;
 		case 2:
@@ -464,13 +444,11 @@ add_shortcode( 'edd_featured_downloads', 'edd_fd_shortcode' );
  * @return array $out       The output array of shortcode attributes.
  */
 function edd_fd_shortcode_atts_downloads( $out, $pairs, $atts, $shortcode ) {
-
 	if ( isset( $atts['featured'] ) && 'yes' === $atts['featured'] ) {
 		$out['featured'] = 'yes';
 	}
 
 	return $out;
-
 }
 add_filter( 'shortcode_atts_downloads', 'edd_fd_shortcode_atts_downloads', 10, 4 );
 
@@ -485,12 +463,10 @@ add_filter( 'shortcode_atts_downloads', 'edd_fd_shortcode_atts_downloads', 10, 4
  * @return array $query
  */
 function edd_fd_filter_downloads_query( $query, $atts ) {
-
-    if ( isset( $atts['featured'] ) && 'yes' === $atts['featured'] ) {
-        $query['meta_key'] = 'edd_feature_download';
+	if ( isset( $atts['featured'] ) && 'yes' === $atts['featured'] ) {
+		$query['meta_key'] = 'edd_feature_download';
 	}
 
 	return $query;
-	
 }
 add_filter( 'edd_downloads_query', 'edd_fd_filter_downloads_query', 10, 2 );
