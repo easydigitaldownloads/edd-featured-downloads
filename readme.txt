@@ -2,8 +2,8 @@
 Contributors: sumobi, easydigitaldownloads
 Tags: easy digital downloads, digital downloads, e-downloads, edd, featured downloads, featured
 Requires at least: 3.9
-Tested up to: 4.8.2
-Stable tag: 1.0.3
+Tested up to: 4.9.8
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ To build your own query using [WP_Query](https://codex.wordpress.org/Class_Refer
 3. See which downloads have been featured at a glance.
 
 == Changelog ==
+
+= 1.0.4 =
+* Fix: Featured column not showing when the Frontend Submissions extension is active.
 
 = 1.0.3 =
 * New: Added a "featured" attribute to the default [downloads] shortcode in Easy Digital Downloads. Example [downloads featured="yes"].
