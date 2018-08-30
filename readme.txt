@@ -1,7 +1,7 @@
 === Easy Digital Downloads Featured Downloads ===
 Contributors: sumobi, easydigitaldownloads
 Tags: easy digital downloads, digital downloads, e-downloads, edd, featured downloads, featured
-Requires at least: 3.9
+Requires at least: 4.6
 Tested up to: 4.9.8
 Stable tag: 1.0.4
 License: GPLv2 or later
