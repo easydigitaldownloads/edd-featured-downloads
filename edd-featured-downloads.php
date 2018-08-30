@@ -15,7 +15,7 @@ License URI: http://www.opensource.org/licenses/gpl-license.php
  * @since 1.0
 */
 function edd_fd_add_featured_meta_box() {
-	add_meta_box( 'edd_featured_download', sprintf( __( 'Feature %1$s', 'edd-fd' ), edd_get_label_singular(), edd_get_label_plural() ), 'edd_fd_render_featured_download_meta_box', 'download', 'side', 'high' );
+	add_meta_box( 'edd_featured_download', sprintf( __( 'Feature %1$s', 'edd-featured-downloads' ), edd_get_label_singular(), edd_get_label_plural() ), 'edd_fd_render_featured_download_meta_box', 'download', 'side', 'high' );
 }
 add_action( 'add_meta_boxes', 'edd_fd_add_featured_meta_box' );
 
@@ -28,7 +28,7 @@ function edd_fd_render_featured_download_meta_box() {
 	$current = get_post_meta( $post->ID, 'edd_feature_download', true );
 ?>
 	<p><label for="edd_feature_download">
-		<input type="checkbox" name="edd_feature_download" id="edd_feature_download"  value="1" <?php checked( 1, $current ); ?>/> <?php _e( 'Feature this download', 'edd-fd' ); ?>
+		<input type="checkbox" name="edd_feature_download" id="edd_feature_download"  value="1" <?php checked( 1, $current ); ?>/> <?php _e( 'Feature this download', 'edd-featured-downloads' ); ?>
 	</label></p>
 <?php }
 
@@ -47,7 +47,7 @@ add_filter( 'edd_metabox_fields_save', 'edd_fd_edd_metabox_fields_save' );
  * @since 1.0
 */
 function edd_fd_download_columns( $download_columns ) {
-	$download_columns['featured'] = __( 'Featured', 'edd-fd' );
+	$download_columns['featured'] = __( 'Featured', 'edd-featured-downloads' );
 	return $download_columns;
 }
 add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns' );
@@ -58,7 +58,7 @@ add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns' );
  * @since 1.0.4
 */
 function edd_fd_fes_download_table_columns( $columns ) {
-	$columns['featured'] = __( 'Featured', 'edd-fd' );
+	$columns['featured'] = __( 'Featured', 'edd-featured-downloads' );
 	return $columns;
 }
 add_filter( 'fes_download_table_columns', 'edd_fd_fes_download_table_columns' );
@@ -77,7 +77,7 @@ function edd_fd_render_download_columns( $column_name, $post_id ) {
 		if ( $featured ) {
 			$checked = 'checked';
 			echo '<input style="visibility: hidden; display: none;" type="checkbox" checked="checked" readonly="readonly" />';
-			_e( 'Featured', 'edd-fd' );
+			_e( 'Featured', 'edd-featured-downloads' );
 		}
 		break;
 	}
@@ -112,7 +112,7 @@ function edd_fd_add_quick_edit( $column_name, $post_type ) {
 
 		<label class="alignleft">
 			<input id="edd_feature_download" name="edd_feature_download" class="edd_feature_download" type="checkbox" />
-			<span class="checkbox-title"><?php _e( 'Feature Download', 'edd-fd' ); ?></span>
+			<span class="checkbox-title"><?php _e( 'Feature Download', 'edd-featured-downloads' ); ?></span>
 		</label>
 		<?php break;
 		}
@@ -415,7 +415,7 @@ function edd_fd_shortcode( $atts, $content = null ) {
 		<?php
 		$display = ob_get_clean();
 	else:
-		$display = sprintf( _x( 'No %s found', 'download post type name', 'edd-fd' ), edd_get_label_plural() );
+		$display = sprintf( _x( 'No %s found', 'download post type name', 'edd-featured-downloads' ), edd_get_label_plural() );
 	endif;
 
 	return apply_filters( 'edd_fd_shortcode', $display, $atts, $buy_button, $columns, $column_width, $downloads, $excerpt, $full_content, $price, $thumbnails, $query );
