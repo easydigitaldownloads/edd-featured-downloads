@@ -60,7 +60,6 @@ add_filter( 'edd_metabox_fields_save', 'edd_fd_edd_metabox_fields_save' );
  * Display post column
  * @since 1.0
 */
-
 function edd_fd_download_columns( $download_columns ) {
 
 	$download_columns['featured'] = __( 'Featured', 'edd-fd' );
@@ -69,6 +68,16 @@ function edd_fd_download_columns( $download_columns ) {
 }
 add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns' );
 
+/**
+ * Adds compatibility with the Frontend Submissions extension.
+ * 
+ * @since 1.0.4
+*/
+function edd_fd_fes_download_table_columns( $columns ) {
+	$columns['featured'] = __( 'Featured', 'edd-fd' );
+	return $columns;
+}
+add_filter( 'fes_download_table_columns', 'edd_fd_fes_download_table_columns' );
 
 /**
  * Show 'featured' in column
