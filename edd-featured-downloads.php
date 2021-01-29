@@ -51,11 +51,11 @@ function edd_fd_download_columns( $download_columns ) {
 	$download_columns['featured'] = __( 'Featured', 'edd-featured-downloads' );
 	return $download_columns;
 }
-add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns' );
+add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns', 20 );
 
 /**
  * Adds compatibility with the Frontend Submissions extension.
- * 
+ *
  * @since 1.0.4
 */
 function edd_fd_fes_download_table_columns( $columns ) {
@@ -127,15 +127,15 @@ add_action( 'quick_edit_custom_box', 'edd_fd_add_quick_edit', 10, 2 );
 
 /**
  * Save function for quick edit
- * 
+ *
  * @since 1.0
- * 
+ *
  * @param int     $post_id Post ID.
  * @param WP_Post $post    Post object.
  * @param bool    $update  Whether this is an existing post being updated or not.
 */
 function edd_fd_save_quick_edit_data( $post_id, $post, $update )  {
-	
+
 	if ( 'download' !== get_post_type( $post_id ) ) {
 		return;
 	}
@@ -251,7 +251,7 @@ if ( ! function_exists('edd_fd_show_featured_downloads') ) {
 
 /**
  * Featured Downloads Shortcode
- * 
+ *
  * Created a new shortcode as filtering the shortcode atts is not possible yet
  * https://core.trac.wordpress.org/ticket/15155
  * @since 1.0
@@ -428,12 +428,12 @@ add_shortcode( 'edd_featured_downloads', 'edd_fd_shortcode' );
  * Example: [downloads featured="yes"]
  *
  * @since 1.0.3
- * 
+ *
  * @param array  $out       The output array of shortcode attributes.
  * @param array  $pairs     The supported attributes and their defaults.
  * @param array  $atts      The user defined shortcode attributes.
  * @param string $shortcode The shortcode name. In this case, "downloads".
- * 
+ *
  * @return array $out       The output array of shortcode attributes.
  */
 function edd_fd_shortcode_atts_downloads( $out, $pairs, $atts, $shortcode ) {
@@ -449,10 +449,10 @@ add_filter( 'shortcode_atts_downloads', 'edd_fd_shortcode_atts_downloads', 10, 4
  * Query downloads by the "edd_feature_download" meta key.
  *
  * @since 1.0.3
- * 
+ *
  * @param array  $query
- * @param string $atts 
- * 
+ * @param string $atts
+ *
  * @return array $query
  */
 function edd_fd_filter_downloads_query( $query, $atts ) {
