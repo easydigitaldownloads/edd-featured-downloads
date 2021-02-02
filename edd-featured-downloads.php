@@ -51,7 +51,7 @@ function edd_fd_download_columns( $download_columns ) {
 	$download_columns['featured'] = __( 'Featured', 'edd-featured-downloads' );
 	return $download_columns;
 }
-add_filter( 'manage_edit-download_columns', 'edd_fd_download_columns', 20 );
+add_filter( 'edd_download_columns', 'edd_fd_download_columns', 20 );
 
 /**
  * Adds compatibility with the Frontend Submissions extension.
