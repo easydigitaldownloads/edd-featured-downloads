@@ -2,7 +2,7 @@
 Contributors: sumobi, easydigitaldownloads
 Tags: easy digital downloads, digital downloads, e-downloads, edd, featured downloads, featured
 Requires at least: 4.6
-Tested up to: 4.9.8
+Tested up to: 5.6
 Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -25,13 +25,11 @@ Add the "featured" attribute to the existing [downloads] shortcode provided by E
 
 = Template Tag Usage =
 
-The following template tag is available for showing the featured downloads anywhere in your theme.
+The following code can be used to show the featured downloads anywhere in your theme:
 
-    if( function_exists( 'edd_fd_show_featured_downloads') ) {
-	    edd_fd_show_featured_downloads();
-    }
+    echo do_shortcode( '[downloads featured="yes"]' );
 
-The template tag uses the exact same HTML as the shortcode so can be modified accordingly by overriding the EDD templates.
+You can include any other attributes supported by the [[downloads] shortcode](https://docs.easydigitaldownloads.com/article/224-downloads).
 
 = Building your own Query =
 
