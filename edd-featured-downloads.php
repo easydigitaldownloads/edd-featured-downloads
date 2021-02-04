@@ -4,8 +4,8 @@ Plugin Name: Easy Digital Downloads - Featured Downloads
 Plugin URI: https://easydigitaldownloads.com/downloads/edd-featured-downloads/
 Description: Provides a intuitive interface and functionality for managing featured downloads
 Version: 1.0.4
-Author: Easy Digital Downloads
-Author URI: https://easydigitaldownloads.com
+Author: Sandhills Development, LLC
+Author URI: https://sandhillsdev.com
 License: GPL-2.0+
 License URI: http://www.opensource.org/licenses/gpl-license.php
 Text Domain: edd-featured-downloads
