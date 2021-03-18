@@ -2,8 +2,8 @@
 Contributors: sumobi, easydigitaldownloads
 Tags: easy digital downloads, digital downloads, e-downloads, edd, featured downloads, featured
 Requires at least: 4.6
-Tested up to: 5.6
-Stable tag: 1.0.4
+Tested up to: 5.7
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,10 @@ To build your own query using [WP_Query](https://codex.wordpress.org/Class_Refer
 3. See which downloads have been featured at a glance.
 
 == Changelog ==
+
+= 1.0.5 =
+* Dev: Compatibility with EDD 3.0.
+* Tweak: Update plugin author name and URI to Sandhills Development.
 
 = 1.0.4 =
 * Fix: Featured column not showing when the Frontend Submissions extension is active.
